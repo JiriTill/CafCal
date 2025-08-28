@@ -1,0 +1,14 @@
+# next
+.next/
+out/
+# deps
+node_modules/
+# env
+.env
+.env.*
+!.env.example
+# vercel
+.vercel/
+# OS
+.DS_Store
+Thumbs.db
