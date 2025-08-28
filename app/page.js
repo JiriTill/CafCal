@@ -170,6 +170,7 @@ export default function Page() {
               width={360}
               height={360}
               priority
+              sizes="(min-width: 1024px) 18rem, (min-width: 768px) 14rem, 10rem"
               className="w-36 h-36 md:w-56 md:h-56 lg:w-64 lg:h-64 object-contain"
             />
           </div>
