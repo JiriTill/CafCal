@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Base theme ---- */
+:root {
+  --bg: #0b0f17;
+  --card: #0f172a;
+  --muted: #94a3b8;
+
+  /* State colors (from your design PDF) */
+  --safe: #10b981;      /* green */
+  --caution: #f59e0b;   /* amber */
+  --warning: #f97316;   /* orange */
+  --danger: #ef4444;    /* red */
+  --critical: #991b1b;  /* deep red */
+
+  --pregnancy: #ec4899;   /* pink */
+  --performance: #06b6d4; /* cyan */
+}
+
+html, body { height: 100%; }
+body {
+  @apply font-sans antialiased text-white relative min-h-screen;
+  background-color: var(--bg);
+}
+
+/* Full-viewport gradient backdrop (seamless, no line) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1100px 650px at 10% 10%, #1f2937 0%, rgba(15,23,42,0.9) 60%, transparent 70%),
+    radial-gradient(900px 500px at 90% 0%, rgba(17,24,39,0.8) 0%, transparent 70%),
+    /* add subtle depth instead of flat color */
+    linear-gradient(180deg, #0b0f17 0%, #111827 100%);
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* ---- Layout helpers ---- */
+.container-max { max-width: 1100px; }
+.card { background: var(--card); border: 1px solid rgba(148,163,184,.18); }
+.label { @apply text-sm text-slate-300; }
+.input { @apply w-full bg-slate-900/60 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500; }
+.select { @apply w-full bg-slate-900/60 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500; }
+.btn { @apply inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium bg-indigo-600 hover:bg-indigo-500 transition; }
+.btn-secondary { @apply inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium bg-slate-700 hover:bg-slate-600 transition; }
+.badge { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs bg-slate-800/80 border border-slate-700 text-slate-200; }
+.badge { min-height: 32px; } /* larger tap target on mobile */
+.hr { @apply border-t border-slate-800 my-6; }
+.small { @apply text-sm text-slate-300; } /* improved contrast */
+
+/* Headings & links */
+@layer base {
+  h1 { @apply text-3xl md:text-4xl font-semibold; }
+  h2 { @apply text-2xl font-semibold; }
+  a  { @apply text-indigo-400 hover:text-indigo-300 underline-offset-4 hover:underline; }
+}
+
+/* Status pills */
+.pill { @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium border; }
+.pill-safe { @apply text-emerald-300 border-emerald-700; background: rgba(16,185,129,.15); }
+.pill-caution { @apply text-amber-300 border-amber-700; background: rgba(245,158,11,.15); }
+.pill-warning { @apply text-orange-300 border-orange-700; background: rgba(249,115,22,.15); }
+.pill-danger { @apply text-rose-300 border-rose-700; background: rgba(239,68,68,.15); }
+
+/* Bar */
+.bar-track { @apply w-full h-3 rounded-full bg-slate-800 overflow-hidden; }
+.bar-fill { @apply h-3 rounded-full transition-all; }
+.bar-ok   { background: linear-gradient(90deg, #22c55e, #16a34a); }
+.bar-over { background: linear-gradient(90deg, #ef4444, #dc2626); }
+
+/* Puzzle tip cards */
+.tip { @apply relative rounded-2xl border border-slate-700/80 bg-slate-900/50 p-4 shadow-sm; }
+.tip::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(400px 120px at -10% -10%, rgba(99,102,241,.08), transparent 60%);
+  border-radius: inherit;
+}
+
+/* Alerts */
+.alert { @apply rounded-xl border p-4; }
+.alert-red { @apply border-rose-700 bg-rose-900/30 text-rose-200; }
+
+/* Article prose */
+.prose { @apply leading-relaxed text-slate-200; }
+.prose h1 { @apply text-3xl font-semibold mb-4; }
+.prose h2 { @apply text-xl font-semibold mt-6 mb-2; }
+.prose p { @apply my-3; }
+.prose ul { @apply list-disc pl-6 my-3; }
+.prose a { @apply underline text-indigo-300 hover:text-indigo-200; }
+/* Table styling for articles */
+.prose table { @apply w-full border-collapse my-4; }
+.prose th, .prose td { @apply border border-slate-700 px-3 py-2; }
+.prose th { @apply bg-slate-800 text-slate-200 font-medium; }
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Stronger focus ring for interactive elements */
+button, [role="button"], select, input, a {
+  @apply focus-visible:ring-2 ring-indigo-400 ring-offset-2 ring-offset-slate-900 outline-none;
+}
+
+/* Pressed feedback */
+.btn:active, .btn-secondary:active { transform: scale(0.95); }
+
+/* Extra-tight screens: soften padding on cards */
+@media (max-width: 400px) {
+  .card { padding: 1rem !important; }
+}
